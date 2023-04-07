@@ -1,6 +1,10 @@
 
-import { saveTask  } from "./helpers/task.js";
-import {TaskModel} from './model/task-model.js'
+import { saveTask, editTask, getTaskById, getAll  } from "./helpers/task.js";
+import { TaskModel } from './model/task-model.js'
+
+const getAllTasks = () =>{
+    console.log(getAll());
+}
 
 
 document.getElementById("saveTask").addEventListener('click', () =>{
@@ -11,6 +15,7 @@ document.getElementById("saveTask").addEventListener('click', () =>{
     if(flag){
         console.log("se guardo");
     }
-    console.log("llega");
 
 })
+
+getAllTasks()
