@@ -20,7 +20,17 @@ const saveTask = (task) => {
 
 }
 
-const editTask = () => {
+const editTask = ( task ) => {
+
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    const taskExists = tasks.find(t => t.id === task.id);
+
+    if(taskExists){
+        taskExists.name = "task gustavo 2";
+        localStorage.setItem("tasks", JSON.stringify(tasks))
+        return true;
+    }
 
 }
 
