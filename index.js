@@ -9,6 +9,7 @@ const createIn = document.getElementById("createIn");
 const btnCloseDialog = document.getElementById("btnCloseDialog");
 const txtIdTask = document.getElementById("txtId");
 const updateTask = document.getElementById("updateTask");
+const terminateTask = document.getElementById("terminateTask");
 
 let TASKLIST = [];
 
@@ -27,9 +28,9 @@ const showTasksHTML = () =>{
          HTML += `<div class="m-4 card w-80 h-44 border grid justify-items-center drop-shadow-md">
                         <div>
                             <div class="" > ${task.name.toUpperCase()}</div>
-                            <div class="" >Create In ${task.date.substring(0,10).toUpperCase()}</div>
+                            <div class="" >Create In: ${task.date.substring(0,10).toUpperCase()}</div>
                             <div class="" >Done: ${(task.done) ? "Yes" : "No"}</div>
-                            <button class="mt-4 w-full rounded-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 w-48 h-8 text-white" id=${task.id}>Edit Task</button>
+                            <button class="mt-4 cursor-pointer w-full rounded-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 w-48 h-8 text-white" id=${task.id}>Edit Task</button>
                         </div>
                   </div>`;
                 
@@ -45,16 +46,24 @@ const showTasksHTML = () =>{
 taskListHTML.addEventListener('click', (e) =>{
     // console.log(e.target.parentNode.id);
     console.log(e);
+    terminateTask.disabled = false;
+    updateTask.disabled = false;
 
     if(e.target.id){
         const respTask = TASKLIST.find(task => task.id === e.target.id)
         if(respTask){
             console.log(respTask);
             nameTask.value = respTask.name;
-            createIn.value = respTask.date;
+            createIn.value = respTask.date.substring(0,10);
             txtIdTask.value = respTask.id;
+
+            if(respTask.done){
+                terminateTask.disabled = true;
+                updateTask.disabled = true;
+            }
+
             dialogTask.showModal();
-    
+
         }
     }
 })
@@ -68,26 +77,27 @@ btnCloseDialog.addEventListener('click', () =>{
 
 updateTask.addEventListener('click', () => {
     const existTask = TASKLIST.find((task) => task.id === txtIdTask.value);
-    console.log("task existe", existTask);
     if(existTask){
         existTask.name = nameTask.value;
         if(editTask(TASKLIST)){
             location.reload();
-
         }
     }
 });
 
-document.getElementById("saveTask").addEventListener('click', () =>{
-    const task = new TaskModel(new Date(), "task 1", new Date(), false);
+terminateTask.addEventListener('click', () =>{
+    const taskExists = TASKLIST.find(task => task.id === txtIdTask.value);
 
-    const flag = saveTask(task);
-
-    if(flag){
-        console.log("se guardo");
+    if(taskExists){
+        taskExists.done = true;
+        if(editTask(TASKLIST)){
+            location.reload();
+        }
     }
 
 })
+
+
 
 
 showTasksHTML();
