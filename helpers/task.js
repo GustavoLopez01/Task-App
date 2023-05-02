@@ -28,12 +28,11 @@ const editTask = ( TaskList = [] ) => {
 const getAll = () => JSON.parse(localStorage.getItem("tasks"));
 
 const getTasksByFilterOption = ( option ) => {
-    console.log(option);
     let opc = null;
     if( option === 'true') opc = true;
     if( option === 'false') opc = false;
-
     const data = JSON.parse(localStorage.getItem("tasks")) || [];
+    
     return data.filter( task => task.done !== opc);
 }
 
