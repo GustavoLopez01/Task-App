@@ -25,16 +25,6 @@ const editTask = ( TaskList = [] ) => {
         return true;
 }
 
+const getAll = () => JSON.parse(localStorage.getItem("tasks"));
 
-const getTaskById = () => {
-
-}
-
-
-const getAll = () => {
-
-    return JSON.parse(localStorage.getItem("tasks"))
-
-}
-
-export {saveTask, editTask, getTaskById, getAll}
+export {saveTask, editTask, getAll}
