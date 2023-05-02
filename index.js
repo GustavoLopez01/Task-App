@@ -19,19 +19,22 @@ const filter = document.querySelector('#filter');
 
 let TASKLIST = [];
 
-// Extrae las tareas del localstorage
-TASKLIST = getAll();
+const showTasksHTML = ( filterList = [] ) =>{
 
-const showTasksHTML = ( ) =>{
-    
-    let dataTasks = TASKLIST || [];
     let HTML = "";
+
+    if(filterList.length > 0){
+        TASKLIST = filterList;
+    }else{
+       TASKLIST = getAll() || [];
+        
+    }
 
     // Limpiamos el html previo antes de volver a mostrarlo
     cleanHTML();
 
     // Pintamos las tareas que existen en nuestra BD Localstorage
-    dataTasks.forEach(task => {
+    TASKLIST.forEach(task => {
         
         HTML += `<div class="m-4 card w-80 h-48 border grid justify-items-center drop-shadow-md">
                     <div class="" >Name: ${task.name.toUpperCase()}</div>
@@ -108,18 +111,16 @@ const saveTaskBD = (e) => {
 
     const task = new TaskModel(new Date(), nameNewTask.value, new Date(), false);
     if(saveTask(task)){
-        showTasksHTML();
         newTaskDialog.close();
         nameNewTask.value = '';
+        showTasksHTML();
+
     }
 }
 
 const paintTasksFilterOption = (e) => {
 
-    console.log(e.target.value);
-
-   TASKLIST = getTasksByFilterOption( e.target.value ) || [];
-   showTasksHTML();
+   showTasksHTML(getTasksByFilterOption( e.target.value ));
 }
 
 // Limpia el html previo
