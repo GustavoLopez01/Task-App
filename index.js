@@ -1,5 +1,5 @@
 
-import { saveTask, editTask, getAll  } from './helpers/task.js';
+import { saveTask, editTask, getAll, getTasksByFilterOption } from './helpers/task.js';
 import { TaskModel } from './model/task-model.js'
 
 const taskListHTML = document.querySelector('#taskListHTML');
@@ -15,17 +15,16 @@ const newTaskDialog = document.querySelector('#newTaskDialog');
 const btnCloseNewTaskDialog = document.querySelector('#btnCloseNewTaskDialog');
 const btnSaveTask = document.querySelector('#saveTask');
 const nameNewTask = document.querySelector('#nameNewTask');
+const filter = document.querySelector('#filter');
 
 let TASKLIST = [];
 
 // Extrae las tareas del localstorage
-const getAllTasks = () =>{
-    return TASKLIST = getAll();
-}
+TASKLIST = getAll();
 
-const showTasksHTML = () =>{
-
-    const dataTasks = getAllTasks() || [];
+const showTasksHTML = ( ) =>{
+    
+    let dataTasks = TASKLIST || [];
     let HTML = "";
 
     // Limpiamos el html previo antes de volver a mostrarlo
@@ -115,6 +114,14 @@ const saveTaskBD = (e) => {
     }
 }
 
+const paintTasksFilterOption = (e) => {
+
+    console.log(e.target.value);
+
+   TASKLIST = getTasksByFilterOption( e.target.value ) || [];
+   showTasksHTML();
+}
+
 // Limpia el html previo
 const cleanHTML = () => {
     while(taskListHTML.firstChild){
@@ -143,5 +150,6 @@ taskListHTML.addEventListener('click', showTask);
 updateTask.addEventListener('click', updateTaskBD);
 terminateTask.addEventListener('click', doneTask);
 btnSaveTask.addEventListener('click', saveTaskBD);
+filter.addEventListener('click', paintTasksFilterOption);
 
 showTasksHTML();
