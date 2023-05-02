@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style type="text/tailwindcss">
         @layer utilities {
         .card {
@@ -25,7 +26,7 @@
     <div>
         <div class="flex justify-around">
             <div class="m-4 mb-4">
-                <button class="rounded-full bg-green-700 w-48 h-11 text-white" id="newTask">New Task</button>
+                <button class="rounded-full bg-gradient-to-r from-cyan-400 to-sky-900 hover:from-sky-500 hover:to-cyan-700 w-48 h-11 text-white" id="newTask">New Task</button>
             </div>
 
             <div class="m-4 mb-4 rounded-md shadow-sm">
@@ -53,11 +54,11 @@
         <div>
             <label for="nameTask" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
             <div class="mt-2 mb-4 rounded-md shadow-sm">
-              <input type="text" name="nameTask" id="nameTask" class="block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" >
+              <input type="text" name="nameTask" id="nameTask" class="block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm" >
             </div>
             <label for="createIn" class="block text-sm font-medium leading-6 text-gray-900">Crated In</label>
             <div class="mt-2 mb-4 rounded-md shadow-sm">
-              <input disabled type="text" name="createIn" id="createIn" class="block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0.00">
+              <input disabled type="text" name="createIn" id="createIn" class="block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm" placeholder="0.00">
             </div>
         </div>
 
@@ -65,21 +66,38 @@
             <button class="rounded-full bg-green-700 w-48 h-8 text-white" id="updateTask">Update</button>
             <button class="rounded-full bg-cyan-950 w-48 h-8 text-white" id="terminateTask">Terminate</button>
         </div>
-
     </dialog>
+
+
+    
+    <!-- Dialog para registrar una nueva tarea -->
+    <dialog id="newTaskDialog">
+      <input type="text" hidden id="txtId"/>
+      <button class="rounded-full" id="btnCloseNewTaskDialog">
+          <span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </span>
+      </button>
+
+      <div class="text-lg font-bold text-center mb-4">Task information</div>
+      <div>
+          <label for="nameNewTask" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
+          <div class="mt-2 mb-4 rounded-md shadow-sm">
+            <input type="text" name="nameNewTask" id="nameNewTask" class="block w-full rounded-md border-0 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" >
+          </div>
+      </div>
+
+      <div class="mt-4">
+          <button class="rounded-full bg-green-700 w-80 h-8 text-white" id="saveTask">Save Task</button>
+      </div>
+
+  </dialog>
+
+
     <script type="module" src="index.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {
-                clifford: '#da373d',
-              }
-            }
-          }
-        }
-      </script>
 </body>
 </html>
